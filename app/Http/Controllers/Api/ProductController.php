@@ -44,7 +44,7 @@ class ProductController extends Controller
         return $this->apiResponseServices->success($product, 'Product created successfully', 201);
     }
 
-    //Product $product do findOrFail
+    //Product $product equivalent findOrFail
     /**
      * Display the specified resource.
      */
