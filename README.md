@@ -25,6 +25,9 @@ Le projet repose sur une relation One-To-Many (Une catégorie possède plusieurs
 **Cloner le projet** 
 ```bash
 git clone <url-repo>
+```
+
+```bash
 cd helloCseTestFullStack
 ```
 
@@ -76,3 +79,11 @@ php artisan route:list
 - GET /api/products/{id} : Détail d'un produit
 - PATCH /api/products/{id} : Modifier un produit
 - DELETE /api/products/{id} : Supprimer un produit
+
+## Postman collection
+
+Une collection Postman est mise à disposition
+
+1. Les fichiers se trouve ici : `/postman/Category.postman_collection.json` &  `/postman/Product.postman_collection.json`
+2. Ouvrez Postman, cliquez sur **Import** et glissez-déposez ces fichiers JSON.
+3. Configurer la variable d'environnement `base_url` sur `http://127.0.0.1:8000`.
