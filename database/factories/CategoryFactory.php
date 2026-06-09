@@ -25,7 +25,6 @@ class CategoryFactory extends Factory
         $fakeImage = UploadedFile::fake()->image('image_category.jpg', 150, 150);
 
         //store in storage/app/public/categories
-        //@TODO symbolic link for api
         $imagePath = Storage::disk('public')->putfile('categories', $fakeImage);
         return [
             'name' => $this->faker->word(),
