@@ -1,58 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Hello CSE - Test Fullstack (API Laravel)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Ce projet est une API REST développée avec Laravel, qui permet la gestion d'un catalogue de produits et de leurs catégories. 
+L'architecture a été pensée pour être propre, scalable et testée.
 
-## About Laravel
+## Fonctionalités
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Gestion des produits (CRUD)
+- Gestion des category (Crud)
+- Flitrage
+- Standarisation des reponses
+- Sécurité et validation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Architecture base de données
+Le projet repose sur une relation One-To-Many (Une catégorie possède plusieurs produits).
+![Diagramme de la base de données](.github/assets/database-diagram.png)
+## Technologies
+- PHP8.2 / Laravel 12
+- Mysql
+- PHPunit
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+## Instalation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+**Cloner le projet** 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <url-repo>
+cd helloCseTestFullStack
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**Installer les dépendenses PHP**
+```bash
+composer install
+```
 
-## Contributing
+**Configuration de l'environnement**
+```bash 
+cp .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Générer la clé d'application**
+```bash
+php artisan key:generate
+```
 
-## Code of Conduct
+**Lancer les migrations et les seeders**
+```bash
+php artisan migrate --seed
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Lancer le serveur local**
+```bash
+php artisan serve
+```
 
-## Security Vulnerabilities
+**Exécution des Tests**
+```bash
+php artisan test 
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Endpoints API
+```bash
+php artisan route:list
+```
+**Catégories (/api/categories)**
+- GET /api/categories : Liste toutes les catégories
+- POST /api/categories : Crée une catégorie
+- GET /api/categories/{id} : Détail d'une catégorie
+- PATCH /api/categories/{id} : Modifier une catégorie
+- DELETE /api/categories/{id} : Supprimer une catégorie
 
-## License
+## Produits (/api/products)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- GET /api/products : Liste tous les produits (supporte le filtre category_id="category_name")
+- POST /api/products : Crée un produit
+- GET /api/products/{id} : Détail d'un produit
+- PATCH /api/products/{id} : Modifier un produit
+- DELETE /api/products/{id} : Supprimer un produit
