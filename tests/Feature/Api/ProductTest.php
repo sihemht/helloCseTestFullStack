@@ -100,10 +100,12 @@ class ProductTest extends TestCase
     public function test_can_delete_product()
     {
         $category = Category::factory()->create();
-        Product::factory()->count(5)->create(['category_id' => $category->id]);
+        $product = Product::factory()->create(['category_id' => $category->id]);
 
-        $response = $this->deleteJson("/api/products/$category->id");
-        $this->assertDatabaseMissing('products', ['id' => $category->id]);
+        $response = $this->deleteJson("/api/products/$product->id");
+
+        //Check in database to see if the product is missing
+        $this->assertDatabaseMissing('products', ['id' => $product->id]);
         $response->assertSuccessful();
     }
 }
