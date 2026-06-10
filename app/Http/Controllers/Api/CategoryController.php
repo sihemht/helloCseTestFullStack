@@ -3,37 +3,39 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
 use App\Services\ApiResponseServices;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
+use App\Services\CategoryService;
+
 
 class CategoryController extends Controller
 {
-    public function __construct(private readonly ApiResponseServices $apiResponseServices)
+    public function __construct(
+        private readonly ApiResponseServices $apiResponseServices,
+        private readonly CategoryService $categoryService)
     {
 
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the categories.
      */
     public function index()
     {
         $categories = Category::all();
-        return $this->apiResponseServices->success($categories, "Category list retrieved successfully");
+        return $this->apiResponseServices->success(CategoryResource::collection($categories), "Category list retrieved successfully");
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created category in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $validateData = $request->validate([
-            'name' => 'required|string|max:255',
-            'image' => 'nullable|string|max:255',
-        ]);
-        $category = Category::create($validateData);
-        return $this->apiResponseServices->success($category, "Category created successfully", 201);
+        $category = $this->categoryService->createCategory($request->validated());
+        return $this->apiResponseServices->success(new CategoryResource($category), "Category created successfully", 201);
     }
 
     /**
@@ -42,33 +44,25 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
 
-        /** to see category and these products
-         * return $this->apiResponseServices->success($category->load("products"), "Category and these products found successfully");
-         */
-        return $this->apiResponseServices->success($category, "Category found successfully");
+    //TODO count product ONLINE only
+        return $this->apiResponseServices->success(new CategoryResource($category->loadCount('products')), "Category found successfully");
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $validateData = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'image' => 'nullable|string|max:255',
-            'status' => 'sometimes|string|in:online,deactivated,archived',
-        ]);
-        $category->update($validateData);
-        return $this->apiResponseServices->success($category, "Category updated successfully");
+        $updatedCategory = $this->categoryService->updateCategory($category, $request->validated());
+        return $this->apiResponseServices->success(new CategoryResource($updatedCategory), "Category updated successfully");
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified category and product they attached with
      */
     public function destroy(Category $category)
     {
-        //delete category and product they attached with
-        $category->delete();
-        return $this->apiResponseServices->success($category, "Category deleted successfully");
+        $this->categoryService->deleteCategory($category);
+        return $this->apiResponseServices->success(null, "Category deleted successfully");
     }
 }

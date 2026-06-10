@@ -5,8 +5,10 @@ namespace Tests\Feature\Api;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductTest extends TestCase
 {
@@ -23,6 +25,7 @@ class ProductTest extends TestCase
         $response = $this->getJson('/api/products');
         $response->assertStatus(200);
     }
+
     public function test_can_list_all_products_by_category()
     {
         //Creat two different categories
@@ -39,16 +42,25 @@ class ProductTest extends TestCase
     }
     public function test_can_create_new_product()
     {
+        Storage::fake('public');
+
         $category = Category::factory()->create();
+        $fakeImage = UploadedFile::fake()->image('image.png', 150, 150);
+
         $data = [
             "name" => "Test Product",
             "price" => 15.90,
-            "image" => "products/blabla.png",
+            "image" => $fakeImage,
             "category_id" => $category->id,
         ];
+
         $response = $this->postJson("/api/products", $data);
         $response->assertStatus(201);
-        $this->assertDatabaseHas("products", $data);
+        $this->assertDatabaseHas("products",  [
+            "name" => "Test Product",
+            "price" => 15.90,
+            "category_id" => $category->id,
+        ]);
     }
 
     public function test_can_show_product()
