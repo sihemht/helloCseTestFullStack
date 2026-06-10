@@ -48,7 +48,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"name\" :  \n}",
+          "raw": "{\n    \"name\" :  \"new category\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -86,12 +86,13 @@
           "raw": ""
         },
         "url": {
-          "raw": "{{url}}/category",
+          "raw": "{{url}}/categories/1",
           "host": [
             "{{url}}"
           ],
           "path": [
-            "category"
+            "categories",
+            "1"
           ]
         }
       },
@@ -104,15 +105,20 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"price\" : 70,67\n}"
+          "raw": "{\n    \"price\" : 70.67\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         },
         "url": {
-          "raw": "{{url}}/category/2",
+          "raw": "{{url}}/categories/2",
           "host": [
             "{{url}}"
           ],
           "path": [
-            "category",
+            "categories",
             "2"
           ]
         }
@@ -125,13 +131,13 @@
         "method": "DELETE",
         "header": [],
         "url": {
-          "raw": "{{url}}/category/1",
+          "raw": "{{url}}/categories/5",
           "host": [
             "{{url}}"
           ],
           "path": [
-            "category",
-            "1"
+            "categories",
+            "5"
           ]
         }
       },

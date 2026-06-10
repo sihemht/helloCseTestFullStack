@@ -30,18 +30,12 @@
           }
         },
         "url": {
-          "raw": "{{url}}/products?category_id=1",
+          "raw": "{{url}}/products",
           "host": [
             "{{url}}"
           ],
           "path": [
             "products"
-          ],
-          "query": [
-            {
-              "key": "category_id",
-              "value": "1"
-            }
           ]
         }
       },
@@ -51,7 +45,22 @@
       "name": "index filtre",
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "url": {
+          "raw": "{{url}}/products?category_id=3",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "products"
+          ],
+          "query": [
+            {
+              "key": "category_id",
+              "value": "3"
+            }
+          ]
+        }
       },
       "response": []
     },
@@ -61,13 +70,39 @@
         "method": "POST",
         "header": [],
         "body": {
-          "mode": "raw",
-          "raw": "{\n    \"name\" : \"verre\",\n    \"price\" : 3,\n    \"image\" : \"path.jpeg\",\n    \"enum\" : \"online\",\n    \"category_id\" : 2\n}",
-          "options": {
-            "raw": {
-              "language": "json"
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "name",
+              "value": "verre",
+              "type": "text",
+              "uuid": "2f08982f-73d4-467b-8364-1c056e7a98ca"
+            },
+            {
+              "key": "price",
+              "value": "12",
+              "type": "text",
+              "uuid": "cbe7d8b3-a884-4237-abf1-c6bb6df9f111"
+            },
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "83cc85ea-3c58-42b0-832c-31ba7d813e23",
+              "src": "/Users/sihem/Desktop/Eatsy/aniversaire/Capture d’écran 2026-06-10 à 13.10.33.png"
+            },
+            {
+              "key": "status",
+              "value": "online",
+              "type": "text",
+              "uuid": "6f1eef4d-3112-4d0c-b7a7-785756b7a5f9"
+            },
+            {
+              "key": "category_id",
+              "value": "2",
+              "type": "text",
+              "uuid": "261eb4cd-746e-44fc-ac6e-f9f3da529a1b"
             }
-          }
+          ]
         },
         "url": {
           "raw": "{{url}}/products",
@@ -83,9 +118,26 @@
     },
     {
       "name": "Show",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
-        "header": []
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{url}}/products/2",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "products",
+            "2"
+          ]
+        }
       },
       "response": []
     },
@@ -96,7 +148,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"price\" : 70,67\n}",
+          "raw": "{\n    \"price\" : 70.67\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -126,13 +178,13 @@
           "raw": "{\n    \"name\" : \"verre\",\n    \"price\" : 3,\n    \"image\" : \"path.jpeg\",\n    \"enum\" : \"online\",\n    \"category_id\" : 2\n\n}"
         },
         "url": {
-          "raw": "{{url}}/products/1",
+          "raw": "{{url}}/products/50",
           "host": [
             "{{url}}"
           ],
           "path": [
             "products",
-            "1"
+            "50"
           ]
         }
       },
