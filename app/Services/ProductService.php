@@ -9,13 +9,11 @@ readonly class ProductService
 {
     public function __construct(private ImageService $imageService)
     {
-
     }
 
     public function createProduct($data)
     {
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile)
-        {
+        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
             $data['image'] = $this->imageService->upload($data['image'], 'products');
         }
         return Product::create($data);
@@ -23,8 +21,7 @@ readonly class ProductService
 
     public function updateProduct(Product $product, $data): Product
     {
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile)
-        {
+        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
             //Delete the old image
             $this->imageService->delete($product->image);
 

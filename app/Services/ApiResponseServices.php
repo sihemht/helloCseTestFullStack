@@ -22,8 +22,7 @@ class ApiResponseServices
             'message' => $message,
         ];
 
-        if (!empty($errors))
-        {
+        if (!empty($errors)) {
             $response['errors'] = $errors;
         }
         return response()->json($response, $statusCode);

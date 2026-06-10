@@ -16,9 +16,8 @@ class CategoryController extends Controller
 {
     public function __construct(
         private readonly ApiResponseServices $apiResponseServices,
-        private readonly CategoryService $categoryService)
-    {
-
+        private readonly CategoryService $categoryService
+    ) {
     }
 
     /**
