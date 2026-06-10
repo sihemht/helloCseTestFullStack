@@ -8,12 +8,14 @@ L'architecture a été pensée pour être propre, scalable et testée.
 - Gestion des produits (CRUD)
 - Gestion des category (Crud)
 - Flitrage
+- Upload d'image
 - Standarisation des reponses
 - Sécurité et validation
 
 ## Architecture base de données
 Le projet repose sur une relation One-To-Many (Une catégorie possède plusieurs produits).
 ![Diagramme de la base de données](.github/assets/database-diagram.png)
+
 ## Technologies
 - PHP8.2 / Laravel 12
 - Mysql
@@ -74,7 +76,8 @@ php artisan route:list
 
 ## Produits (/api/products)
 
-- GET /api/products : Liste tous les produits (supporte le filtre category_id="category_name")
+- GET /api/products : Liste tous les produits
+- GET /api/products?category_id={id} : Filtre par catégorie
 - POST /api/products : Crée un produit
 - GET /api/products/{id} : Détail d'un produit
 - PATCH /api/products/{id} : Modifier un produit
