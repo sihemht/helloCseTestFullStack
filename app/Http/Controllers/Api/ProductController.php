@@ -11,13 +11,15 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 
-
 class ProductController extends Controller
 {
     public function __construct(
         private readonly ApiResponseServices $apiResponseServices,
         private readonly ProductService $productService
-    ){}
+    )
+    {
+
+    }
 
 
     /**
@@ -27,7 +29,7 @@ class ProductController extends Controller
     {
         $query = Product::with('category');
 
-        if($request->has('category_id')) {
+        if ($request->has('category_id')) {
             $query->where('category_id', $request->query('category_id'));
         }
         $products = $query->get();
@@ -50,7 +52,8 @@ class ProductController extends Controller
             new ProductResource($product),
             "Product created successfully",
             201
-        ); }
+        );
+    }
 
     //Product $product equivalent findOrFail
     /**
@@ -67,7 +70,8 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $productUpdated = $this->productService->updateProduct($product, $request->validated());
-        return $this->apiResponseServices->success(new ProductResource($productUpdated), 'Product updated successfully');
+        return $this->apiResponseServices
+            ->success(new ProductResource($productUpdated), 'Product updated successfully');
     }
 
     /**

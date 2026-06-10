@@ -22,8 +22,7 @@ class Product extends Model
 
     //Enum
      protected $casts = [
-
-         'price'=> 'float',
+         'price' => 'float',
          'status' => ProductStatus::class,
      ];
 

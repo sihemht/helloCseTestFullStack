@@ -9,13 +9,12 @@ use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Storage;
 
-
 class ProductTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_can_list_all_products(){
-
+    public function test_can_list_all_products()
+    {
         //Create Category
         $category = Category::factory()->create();
 
@@ -56,7 +55,7 @@ class ProductTest extends TestCase
 
         $response = $this->postJson("/api/products", $data);
         $response->assertStatus(201);
-        $this->assertDatabaseHas("products",  [
+        $this->assertDatabaseHas("products", [
             "name" => "Test Product",
             "price" => 15.90,
             "category_id" => $category->id,
@@ -66,7 +65,7 @@ class ProductTest extends TestCase
     public function test_can_show_product()
     {
         $category = Category::factory()->create();
-        $product = Product::factory()->create(['category_id'=>$category->id]);
+        $product = Product::factory()->create(['category_id' => $category->id]);
         $response = $this->getJson("/api/products/$product->id");
         $response->assertStatus(200);
     }
@@ -75,7 +74,7 @@ class ProductTest extends TestCase
     {
         $category = Category::factory()->create();
         $product = Product::factory()->create([
-            'category_id'=>$category->id,
+            'category_id' => $category->id,
             "price" => 10.99,
         ]);
         $data = [
