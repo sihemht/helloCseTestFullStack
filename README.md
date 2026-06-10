@@ -24,7 +24,7 @@ Le projet repose sur une relation One-To-Many (Une catégorie possède plusieurs
 
 **Cloner le projet** 
 ```bash
-git clone <url-repo>
+git clone <https://github.com/sihemht/helloCseTestFullStack>
 ```
 
 ```bash
