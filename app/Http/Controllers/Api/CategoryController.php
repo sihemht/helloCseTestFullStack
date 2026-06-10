@@ -12,7 +12,6 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Services\CategoryService;
 
-
 class CategoryController extends Controller
 {
     public function __construct(
@@ -30,7 +29,8 @@ class CategoryController extends Controller
         $categories = Category::withCount([
             'products' => fn($query) => $query->where('status', ProductStatus::ONLINE)
         ])->get();
-        return $this->apiResponseServices->success(CategoryResource::collection($categories), "Category list retrieved successfully");
+        return $this->apiResponseServices
+            ->success(CategoryResource::collection($categories), "Category list retrieved successfully");
     }
 
     /**
@@ -39,7 +39,8 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         $category = $this->categoryService->createCategory($request->validated());
-        return $this->apiResponseServices->success(new CategoryResource($category), "Category created successfully", 201);
+        return $this->apiResponseServices
+            ->success(new CategoryResource($category), "Category created successfully", 201);
     }
 
     /**
@@ -50,7 +51,8 @@ class CategoryController extends Controller
         $category->loadCount([
             'products' => fn($query) => $query->where('status', ProductStatus::ONLINE)
         ]);
-        return $this->apiResponseServices->success(new CategoryResource($category), "Category found successfully");
+        return $this->apiResponseServices
+            ->success(new CategoryResource($category), "Category found successfully");
     }
 
     /**
@@ -59,7 +61,8 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $updatedCategory = $this->categoryService->updateCategory($category, $request->validated());
-        return $this->apiResponseServices->success(new CategoryResource($updatedCategory), "Category updated successfully");
+        return $this->apiResponseServices
+            ->success(new CategoryResource($updatedCategory), "Category updated successfully");
     }
 
     /**
@@ -68,6 +71,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $this->categoryService->deleteCategory($category);
-        return $this->apiResponseServices->success(null, "Category deleted successfully");
+        return $this->apiResponseServices
+            ->success(null, "Category deleted successfully");
     }
 }

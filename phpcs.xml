@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="Laravel Project Rules">
+    <description>Règles PHPCS pour Laravel</description>
+
+    <rule ref="PSR12"/>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>./tests/*</exclude-pattern>
+    </rule>
+</ruleset>

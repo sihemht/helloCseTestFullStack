@@ -2,12 +2,11 @@
 
 namespace App\Services;
 
-
 use Illuminate\Http\JsonResponse;
 
-class ApiResponseServices {
-
-    public function success(mixed $data, string $message = 'Success',int $statusCode = 200):JsonResponse
+class ApiResponseServices
+{
+    public function success(mixed $data, string $message = 'Success', int $statusCode = 200):JsonResponse
     {
         return response()->json([
             'success' => true,
@@ -23,10 +22,10 @@ class ApiResponseServices {
             'message' => $message,
         ];
 
-        if(!empty($errors)) {
+        if (!empty($errors))
+        {
             $response['errors'] = $errors;
         }
-
         return response()->json($response, $statusCode);
     }
 }

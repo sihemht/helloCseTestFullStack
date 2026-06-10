@@ -46,10 +46,10 @@ class CategoryTest extends TestCase
     }
 
 
-    public function test_can_update_a_category(){
-
+    public function test_can_update_a_category()
+    {
         //Creat category with specific name
-        $category = Category::factory()->create(['name'=>'Old Name']);
+        $category = Category::factory()->create(['name' => 'Old Name']);
 
         //recover category that we created and update the name
         $response = $this->patchJson("/api/categories/$category->id", [
@@ -58,7 +58,7 @@ class CategoryTest extends TestCase
         //Insert in database after updated
         $this->assertDatabaseHas('categories', [
             'name' => 'New Name',
-            'id' =>$category->id,
+            'id' => $category->id,
         ]);
         $response->assertStatus(200);
   }

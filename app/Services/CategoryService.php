@@ -1,7 +1,6 @@
 <?php
 namespace App\Services;
 
-
 use App\Models\Category;
 use Illuminate\Http\UploadedFile;
 
@@ -11,9 +10,10 @@ readonly class CategoryService {
     {
 
     }
-    public function createCategory(array$data)
+    public function createCategory(array $data)
     {
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
+        if (isset($data['image']) && $data['image'] instanceof UploadedFile)
+        {
             $data['image'] = $this->imageService->upload($data['image'], 'categories');
         }
         return Category::create($data);
@@ -21,7 +21,8 @@ readonly class CategoryService {
 
     public function updateCategory(Category $category, array $data): Category
     {
-        if (isset($data['image']) && $data['image'] instanceof UploadedFile) {
+        if (isset($data['image']) && $data['image'] instanceof UploadedFile)
+        {
             if ($category->image) {
                 $this->imageService->delete($category->image);
             }
@@ -34,10 +35,10 @@ readonly class CategoryService {
 
     public function deleteCategory(Category $category): void{
 
-        if($category->image){
+        if ($category->image)
+        {
             $this->imageService->delete($category->image);
         }
         $category->delete();
     }
-
 }
