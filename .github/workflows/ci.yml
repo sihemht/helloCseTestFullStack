@@ -56,7 +56,7 @@ jobs:
         run: composer audit
 
       - name: Check Code Style (PSR-12)
-        run: phpcs
+        run: phpcs app/ tests/
 
       # ----------------------------------------
 
