@@ -2,18 +2,18 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
   tests:
-    name: PHP ${{ matrix.php }} — Tests
+    name: PHP ${{ matrix.php }} — Tests & Quality
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        php: [ '8.2' ]
+        php: [ '8.2' ] # Vous pourrez ajouter '8.3' ou '8.4' ici plus tard si besoin
 
     services:
       mysql:
@@ -39,6 +39,7 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: mbstring, pdo, pdo_mysql, exif, gd
           coverage: none
+          tools: phpcs, phpstan
 
       - name: Cache Composer dependencies
         uses: actions/cache@v4
@@ -49,6 +50,15 @@ jobs:
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      # --- 🛡️ SECTION 1: SÉCURITÉ & QUALITÉ ---
+      - name: Check Composer security vulnerabilities
+        run: composer audit
+
+      - name: Check Code Style (PSR-12)
+        run: phpcs --standard=PSR12 app/ tests/
+
+      # ----------------------------------------
 
       - name: Copy .env
         run: cp .env.example .env.testing
@@ -62,7 +72,8 @@ jobs:
           echo "DB_PORT=3306" >> .env.testing
           echo "DB_DATABASE=hello_cse_test" >> .env.testing
           echo "DB_USERNAME=root" >> .env.testing
-          echo "DB_PASSWORD={{ secrets.MYSQL_ROOT_PASSWORD }}" >> .env.testing
+          # Correction ici : Utilisation de la bonne syntaxe GitHub Actions pour injecter le secret
+          echo "DB_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }}" >> .env.testing
 
       - name: Generate app key
         run: php artisan key:generate --env=testing
