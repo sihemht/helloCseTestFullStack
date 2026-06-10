@@ -6,16 +6,16 @@ use Illuminate\Http\JsonResponse;
 
 class ApiResponseServices
 {
-    public function success(mixed $data, string $message = 'Success', int $statusCode = 200):JsonResponse
+    public function success(mixed $data, string $message = 'Success', int $statusCode = 200): JsonResponse
     {
         return response()->json([
             'success' => true,
             'message' => $message,
             'data' => $data
         ], $statusCode);
-
     }
-    public function failure(string $message = 'Failure', array $errors = [], int $statusCode = 400):JsonResponse
+
+    public function failure(string $message = 'Failure', array $errors = [], int $statusCode = 400): JsonResponse
     {
         $response = [
             'success' => false,

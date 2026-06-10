@@ -24,7 +24,7 @@ class Category extends Model
     ];
 
     //Relationship one category have many products
-    public function products():HasMany
+    public function products(): HasMany
     {
         return $this->hasMany(Product::class);
     }

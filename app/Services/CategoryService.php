@@ -4,8 +4,8 @@ namespace App\Services;
 use App\Models\Category;
 use Illuminate\Http\UploadedFile;
 
-readonly class CategoryService {
-
+readonly class CategoryService
+{
     public function __construct(private ImageService $imageService)
     {
 
