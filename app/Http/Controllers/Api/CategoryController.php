@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\ProductStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Models\Product;
 use App\Services\ApiResponseServices;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
@@ -25,7 +27,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::withCount([
+            'products' => fn($query) => $query->where('status', ProductStatus::ONLINE)
+        ])->get();
         return $this->apiResponseServices->success(CategoryResource::collection($categories), "Category list retrieved successfully");
     }
 
@@ -39,17 +43,18 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified category.
      */
     public function show(Category $category)
     {
-
-    //TODO count product ONLINE only
-        return $this->apiResponseServices->success(new CategoryResource($category->loadCount('products')), "Category found successfully");
+        $category->loadCount([
+            'products' => fn($query) => $query->where('status', ProductStatus::ONLINE)
+        ]);
+        return $this->apiResponseServices->success(new CategoryResource($category), "Category found successfully");
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified category in storage.
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
