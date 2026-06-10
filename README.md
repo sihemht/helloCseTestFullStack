@@ -1,3 +1,4 @@
+![CI Status](https://github.com/sihemht/helloCseTestFullStack/actions/workflows/ci.yml/badge.badge.svg)
 ## Hello CSE - Test Fullstack (API Laravel)
 
 Ce projet est une API REST développée avec Laravel, qui permet la gestion d'un catalogue de produits et de leurs catégories. 
