@@ -16,8 +16,7 @@ class ImageService
     //Delete image if exist
     public function delete(string $path)
     {
-        if ($path && file_exists(storage_path('app/public/' . $path)))
-        {
+        if ($path && file_exists(storage_path('app/public/' . $path))) {
             Storage::delete('public/' . $path);
         }
     }

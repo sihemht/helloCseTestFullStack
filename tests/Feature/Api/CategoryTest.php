@@ -12,7 +12,8 @@ class CategoryTest extends TestCase
     use RefreshDatabase;
 
 
-    public function test_can_list_all_categories(){
+    public function test_can_list_all_categories()
+    {
 
         Category::factory()->count(5)->create();
         $response = $this->getJson('/api/categories');
@@ -30,7 +31,8 @@ class CategoryTest extends TestCase
     }
 
 
-    public function test_fails_to_create_category(){
+    public function test_fails_to_create_category()
+    {
 
         $response = $this->postJson('/api/categories', []);
         $response->assertStatus(422);
@@ -61,7 +63,7 @@ class CategoryTest extends TestCase
             'id' => $category->id,
         ]);
         $response->assertStatus(200);
-  }
+    }
 
 
     public function test_can_delete_a_category(): void
@@ -73,6 +75,6 @@ class CategoryTest extends TestCase
 
         //Line corresponding to the ID of our category
         //has disappeared from the categories table.
-        $this->assertDatabaseMissing('categories',['id'=>$category->id]);
+        $this->assertDatabaseMissing('categories', ['id' => $category->id]);
     }
 }
