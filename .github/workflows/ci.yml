@@ -51,14 +51,11 @@ jobs:
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
 
-      # --- 🛡️ SECTION 1: SÉCURITÉ & QUALITÉ ---
       - name: Check Composer security vulnerabilities
         run: composer audit
 
       - name: Check Code Style (PSR-12)
         run: phpcs --standard=PSR12 app/ tests/
-
-      # ----------------------------------------
 
       - name: Copy .env
         run: cp .env.example .env.testing
