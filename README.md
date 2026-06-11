@@ -19,7 +19,7 @@ Le projet repose sur une relation One-To-Many (Une catégorie possède plusieurs
 ![Diagramme de la base de données](.github/assets/database-diagram.png)
 
 ## Technologies
-- PHP8.2 / Laravel 12
+- PHP8.3 / Laravel 12
 - Mysql
 - PHPunit
 
